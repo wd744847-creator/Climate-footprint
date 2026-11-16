@@ -5,533 +5,370 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>بصمة مناخية | متجر صديق للبيئة</title>
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
 <style>
-:root{
---green:#185b3a;
---light:#edf5e9;
---gold:#c5a66a;
---dark:#173c2b
-}
+:root{--green:#185338;--light:#f3f7ef;--gold:#a77b35;--text:#234532}
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:Tahoma,Arial;
-background:#f7faf5;
-color:#203b2c
-}
-header{
-background:var(--green);
-color:white;
-padding:18px 5%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:12px
-}
-.logo{font-size:25px;font-weight:bold}
-header a{color:white;text-decoration:none}
-.hero{
-padding:55px 20px;
-text-align:center;
-background:linear-gradient(135deg,#dcebd5,#f6f5e8)
-}
-.hero h1{font-size:36px;color:var(--green)}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--light);color:var(--text)}
+header{text-align:center;background:white;padding:20px;box-shadow:0 2px 10px #0001}
+header h1{color:var(--green);margin:5px;font-size:29px}
+header p{color:#66806c}
+nav{background:white;display:flex;justify-content:center;gap:22px;flex-wrap:wrap;padding:15px;position:sticky;top:0;z-index:10}
+nav a{color:var(--green);text-decoration:none;font-weight:bold}
+.hero{margin:25px auto;max-width:1100px;padding:35px 20px;text-align:center;background:#e0eddf;border-radius:20px}
+.hero h2{color:var(--green)}
 .hero p{line-height:2}
-button{
-border:0;
-border-radius:10px;
-padding:11px 16px;
-cursor:pointer;
-font-size:15px
-}
-.primary{background:var(--green);color:white}
-.secondary{background:#dcebd5;color:var(--dark)}
-.container{max-width:1150px;margin:auto;padding:25px 15px}
-h2{color:var(--green)}
-.tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-input,select,textarea{
-padding:12px;
-border:1px solid #ccd9cb;
-border-radius:9px;
-font:inherit;
-width:100%;
-margin:6px 0
-}
-.tools input{flex:1;min-width:180px}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:18px
-}
-.card{
-background:white;
-border-radius:16px;
-padding:14px;
-box-shadow:0 3px 14px #173c2b12
-}
-.card img{
-width:100%;
-height:170px;
-object-fit:cover;
-border-radius:12px
-}
-.card h3{margin:12px 0 6px}
-.price{font-weight:bold;color:var(--green);font-size:19px}
-.card button{margin-top:8px;width:100%}
-.tag{
-background:#e8f2e4;
-color:var(--green);
-padding:5px 9px;
-border-radius:20px;
-font-size:12px
-}
-.panel{
-background:white;
-border-radius:16px;
-padding:20px;
-margin:25px 0;
-box-shadow:0 3px 14px #173c2b12
-}
-.cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-border-bottom:1px solid #eee;
-padding:12px 0;
-flex-wrap:wrap
-}
-.cart-item button{padding:6px 10px}
-.total{font-size:21px;font-weight:bold;color:var(--green)}
-model-viewer{
-width:100%;
-height:350px;
-background:#edf5e9;
-border-radius:15px
-}
-.ar-camera-button{
-display:block;
-margin:18px auto;
-padding:16px 25px;
-font-size:18px;
-width:100%;
-background:var(--green);
-color:white;
-border-radius:12px
-}
-footer{
-background:#173c2b;
-color:white;
-text-align:center;
-padding:30px;
-line-height:2
-}
-footer a{color:#d5edc9}
-.small{font-size:13px;color:#647568;line-height:1.8}
+.controls{max-width:1100px;margin:20px auto;padding:0 15px;display:flex;gap:10px;flex-wrap:wrap}
+input,select{padding:13px;border:1px solid #d4dfd3;border-radius:10px;font-size:15px;background:white}
+#search{flex:1;min-width:180px}
+.products{max-width:1400px;margin:20px auto;padding:0 18px 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.product{background:white;border-radius:20px;overflow:hidden;box-shadow:0 5px 18px #0000000c;padding-bottom:18px}
+.product img{width:100%;height:210px;object-fit:cover;display:block;background:#edf2eb}
+.info{padding:15px}
+.category{display:inline-block;background:#e0efdc;color:var(--green);border-radius:20px;padding:6px 12px;font-size:13px}
+.product h3{min-height:45px;font-size:18px;line-height:1.6}
+.price{color:#16844a;font-weight:bold;font-size:22px;margin:12px 0}
+button{border:0;border-radius:12px;padding:13px;cursor:pointer;font-family:inherit;font-size:15px}
+.add{width:100%;color:white;background:var(--green)}
+.ar-button{width:100%;margin-top:9px;background:var(--gold);color:white}
+.section{max-width:1000px;margin:25px auto;padding:20px}
+.panel{background:white;border-radius:18px;padding:22px;box-shadow:0 4px 15px #0001}
+.cart-item{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:12px 0}
+.cart-item button{background:#f5e5e2;color:#963b2f;padding:8px 12px}
+.total{font-size:22px;font-weight:bold;color:var(--green);margin:20px 0}
+.checkout{width:100%;background:var(--green);color:white}
+form{display:grid;gap:12px}
+form input,form textarea{width:100%;padding:13px;border:1px solid #d4dfd3;border-radius:10px;font-family:inherit}
+form textarea{min-height:85px}
+footer{background:var(--green);color:white;padding:30px 15px;text-align:center;line-height:2.2}
+footer a{color:white}
+
+#arModal{display:none;position:fixed;inset:0;z-index:1000;background:#07120d;color:white}
+#arModal.active{display:block}
+#camera{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ar-top{position:absolute;top:15px;right:15px;left:15px;z-index:3;display:flex;justify-content:space-between;align-items:center}
+.ar-top button,.ar-controls button{background:#ffffffdf;color:#17452e;font-weight:bold}
+#arProduct{position:absolute;width:230px;height:230px;object-fit:contain;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;cursor:move;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 5px 12px #0005)}
+.ar-hint{position:absolute;top:75px;left:10px;right:10px;text-align:center;background:#0009;padding:10px;border-radius:12px;font-size:13px;z-index:2}
+.ar-controls{position:absolute;bottom:25px;left:10px;right:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;z-index:3}
+#cameraError{display:none;position:absolute;top:40%;left:15px;right:15px;padding:20px;text-align:center;line-height:2;background:#000b;border-radius:15px;z-index:4}
 @media(max-width:600px){
-.hero h1{font-size:27px}
-header{justify-content:center}
+header h1{font-size:24px}
+nav{gap:14px;font-size:14px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 10px}
+.product img{height:145px}
+.info{padding:10px}
+.product h3{font-size:15px}
+.price{font-size:18px}
+.product button{font-size:13px;padding:11px 5px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
- <div class="logo">🌿 بصمة مناخية</div>
- <div>
-  <a href="#products">المنتجات</a>　
-  <a href="#ar">تجربة AR</a>　
-  <a href="#cart">🛒 السلة (<span id="count">0</span>)</a>
- </div>
+<h1>🌿 بصمة مناخية</h1>
+<p>اختيارات صديقة للبيئة... لمستقبل أجمل</p>
 </header>
 
-<section class="hero">
- <h1>اختياراتك اليوم تصنع غدًا أخضر 🌱</h1>
- <p>
- متجر بصمة مناخية يقدم لك منتجات مستدامة وصديقة للبيئة<br>
- تسوّق بوعي، وكن جزءًا من التغيير.
- </p>
- <a href="#products"><button class="primary">اكتشف منتجاتنا</button></a>
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#products">المنتجات</a>
+<a href="#cart">🛒 السلة</a>
+<a href="#delivery">التوصيل</a>
+<a href="#contact">تواصل معنا</a>
+</nav>
+
+<section class="hero" id="home">
+<h2>معًا نصنع فرقًا أخضر 🌱</h2>
+<p>اكتشف منتجاتنا الصديقة للبيئة، واختر ما يناسبك. جرّب المنتجات باستخدام كاميرا جهازك قبل اتخاذ قرارك.</p>
 </section>
 
-<main class="container">
-
-<h2 id="products">🌱 منتجاتنا الصديقة للبيئة</h2>
-
-<div class="tools">
- <input id="search" placeholder="ابحث عن منتج..." oninput="renderProducts()">
- <select id="category" onchange="renderProducts()">
-  <option value="الكل">كل المنتجات</option>
-  <option>المنزل</option>
-  <option>العناية</option>
-  <option>إعادة الاستخدام</option>
-  <option>الطاقة</option>
-  <option>الحديقة</option>
- </select>
+<div class="controls">
+<input id="search" type="search" placeholder="ابحث عن منتج...">
+<select id="category">
+<option value="الكل">كل المنتجات</option>
+<option value="المطبخ">المطبخ</option>
+<option value="المنزل">المنزل</option>
+<option value="العناية">العناية</option>
+<option value="القرطاسية">القرطاسية</option>
+<option value="الطاقة">الطاقة</option>
+</select>
 </div>
 
-<div class="grid" id="productsGrid"></div>
+<h2 style="text-align:center;color:#185338" id="products">منتجاتنا 🌿</h2>
+<div class="products" id="productList"></div>
 
-<!-- الواقع المعزز -->
-<section class="panel" id="ar">
-
- <h2>📱 جرّب المنتجات بالواقع المعزز AR</h2>
-
- <p>
- اختاري أحد المنتجات المدعومة، ثم اضغطي على زر الكاميرا
- لتجربة المجسم في مساحتك الحقيقية.
- </p>
-
- <select id="arSelect" onchange="changeAR()">
-  <option value="bottle">زجاجة ماء مستدامة</option>
-  <option value="lantern">مصباح صديق للبيئة</option>
-  <option value="vase">مزهرية زجاجية</option>
-  <option value="chair">كرسي مستدام</option>
-  <option value="watch">ساعة</option>
- </select>
-
- <model-viewer
-  id="viewer"
-  src="https://modelviewer.dev/shared-assets/models/WaterBottle.glb"
-  ios-src="https://modelviewer.dev/shared-assets/models/WaterBottle.usdz"
-  camera-controls
-  auto-rotate
-  ar
-  ar-modes="webxr scene-viewer quick-look"
-  environment-image="neutral"
-  shadow-intensity="1"
-  alt="نموذج ثلاثي الأبعاد تجريبي">
-
-  <button slot="ar-button" class="primary">
-   📷 تشغيل الواقع المعزز
-  </button>
-
- </model-viewer>
-
- <button
-  class="ar-camera-button"
-  onclick="startAR()">
-  📷 جرّبي المنتج بالكاميرا
- </button>
-
- <p class="small">
- هذه نماذج ثلاثية الأبعاد تجريبية للعرض، وقد لا تطابق المنتجات المعروضة في المتجر.
- تتطلب ميزة الواقع المعزز جهازًا متوافقًا واتصالًا بالإنترنت
- وموقعًا يعمل عبر HTTPS.
- </p>
-
+<section class="section" id="cart">
+<div class="panel">
+<h2>🛒 سلة التسوق</h2>
+<div id="cartItems">السلة فارغة حاليًا</div>
+<div class="total" id="total">الإجمالي: 0 ريال</div>
+<p>رسوم التوصيل: 15 ريال، والتوصيل مجاني للطلبات بقيمة 150 ريال فأكثر.</p>
+</div>
 </section>
 
-<!-- السلة -->
-<section class="panel" id="cart">
-
- <h2>🛒 سلة مشترياتك</h2>
-
- <div id="cartItems">السلة فارغة حاليًا.</div>
-
- <p>المجموع: <span id="subtotal">0</span> ريال</p>
- <p>الشحن: <span id="shipping">0</span> ريال</p>
-
- <p class="total">
- الإجمالي: <span id="total">0</span> ريال
- </p>
-
- <p class="small">
- الشحن 15 ريالًا، ومجانًا للطلبات التي تتجاوز 150 ريالًا.
- </p>
-
+<section class="section" id="delivery">
+<div class="panel">
+<h2>🚚 بيانات التوصيل والطلب</h2>
+<form id="orderForm">
+<input id="customerName" required placeholder="الاسم الكامل">
+<input id="customerPhone" required type="tel" placeholder="رقم الجوال">
+<input id="customerAddress" required placeholder="المدينة والحي والعنوان">
+<textarea id="customerNotes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+<button class="checkout" type="submit">إرسال الطلب عبر واتساب</button>
+</form>
+</div>
 </section>
 
-<!-- بيانات التوصيل -->
-<section class="panel" id="checkout">
-
- <h2>📦 بيانات التوصيل وإتمام الطلب</h2>
-
- <form onsubmit="checkout(event)">
-
-  <label>الاسم الكامل</label>
-  <input id="customer" required placeholder="اكتب اسمك">
-
-  <label>رقم الجوال</label>
-  <input id="phone" required type="tel" placeholder="05xxxxxxxx">
-
-  <label>البريد الإلكتروني</label>
-  <input id="email" type="email" placeholder="example@email.com">
-
-  <label>المدينة</label>
-  <input id="city" required placeholder="المدينة">
-
-  <label>الحي والعنوان</label>
-  <textarea id="address" required placeholder="العنوان بالتفصيل"></textarea>
-
-  <label>طريقة الدفع (تجريبية)</label>
-  <select id="payment">
-   <option>الدفع عند الاستلام (تجريبي)</option>
-   <option>تحويل بنكي (تجريبي غير مفعّل)</option>
-  </select>
-
-  <label>ملاحظات إضافية</label>
-  <textarea id="notes"></textarea>
-
-  <button class="primary" type="submit">
-   تأكيد الطلب التجريبي
-  </button>
-
- </form>
-
- <p class="small">
- لا يتم إرسال البيانات إلى خادم أو حفظها لدى المتجر.
- هذا نموذج توضيحي فقط.
- </p>
-
-</section>
-
-<section class="panel">
-
- <h2>💚 لماذا بصمة مناخية؟</h2>
-
- <div class="grid">
-  <div>
-   <h3>♻️ استدامة</h3>
-   <p>نشجع إعادة الاستخدام وتقليل النفايات.</p>
-  </div>
-
-  <div>
-   <h3>🌍 بيئة أفضل</h3>
-   <p>خيارات تساعد على تقليل الأثر البيئي.</p>
-  </div>
-
-  <div>
-   <h3>🌱 وعي أخضر</h3>
-   <p>كل اختيار واعٍ يصنع فرقًا.</p>
-  </div>
- </div>
-
-</section>
-</main>
-
-<footer>
-
- <h2 style="color:white">🌿 بصمة مناخية</h2>
-
- <p>معًا نحو مستقبل أكثر استدامة</p>
-
- <p>
- 📞 التواصل:
- <a href="tel:0508271483">0508271483</a>
- </p>
-
- <p>
- 💬 واتساب:
- <a href="https://wa.me/966508271483" target="_blank">
- تواصل معنا عبر واتساب
- </a>
- </p>
-
- <p>© 2026 بصمة مناخية - جميع الحقوق محفوظة</p>
-
+<footer id="contact">
+<h2>بصمة مناخية 🌍</h2>
+<p>معًا نحو بيئة أنظف ومستقبل أفضل</p>
+<p>رقم التواصل: 0508271483</p>
+<p><a href="https://wa.me/966508271483">تواصل معنا عبر واتساب</a></p>
 </footer>
 
+<div id="arModal">
+<video id="camera" autoplay playsinline muted></video>
+<div class="ar-top">
+<strong>🌿 تجربة الواقع المعزز 2D</strong>
+<button id="closeButton">✕ إغلاق</button>
+</div>
+<div class="ar-hint" id="arHint">جارٍ تجهيز المنتج...</div>
+<div id="cameraError">تعذر تشغيل الكاميرا. تأكدي من السماح باستخدام الكاميرا وفتح الموقع عبر HTTPS.</div>
+<img id="arProduct" src="" alt="صورة المنتج بخلفية شفافة">
+<div class="ar-controls">
+<button id="zoomIn">＋ تكبير</button>
+<button id="zoomOut">－ تصغير</button>
+<button id="resetButton">إعادة ضبط</button>
+</div>
+</div>
+
 <script>
-
 const products=[
-["زجاجة ماء قابلة لإعادة الاستخدام","إعادة الاستخدام",35,"زجاجة عملية لتقليل العبوات البلاستيكية","photo-1602143407151-7111542de6e8"],
-["حقيبة قماش تسوق","إعادة الاستخدام",25,"بديل عملي للأكياس البلاستيكية","photo-1544816155-12df9643f363"],
-["مصباح LED موفر للطاقة","الطاقة",49,"إضاءة موفرة للاستهلاك","photo-1507473885765-e6ed057f782c"],
-["أصيص نبات طبيعي","الحديقة",30,"أضف لمسة خضراء لمنزلك","photo-1485955900006-10f4d324d411"],
-["دفتر ورق معاد تدويره","المنزل",18,"دفتر صديق للبيئة","photo-1531346878377-a5be20888e57"],
-["فرشاة أسنان خشبية","العناية",12,"بديل عملي للفرش البلاستيكية","photo-1609840114035-3c981b782dfe"],
-["صابون طبيعي","العناية",22,"صابون بمكونات لطيفة","photo-1600428853876-fb5a850b444f"],
-["أكياس قابلة لإعادة الاستخدام","إعادة الاستخدام",16,"للتسوق اليومي","photo-1590874103328-eac38a683ce7"],
-["وعاء زجاجي للطعام","المنزل",28,"حفظ الطعام بطريقة قابلة لإعادة الاستخدام","photo-1603199506016-b9a594b593c0"],
-["كوب قهوة مستدام","إعادة الاستخدام",32,"كوبك اليومي القابل لإعادة الاستخدام","photo-1514228742587-6b1558fcca3d"],
-["منظم خشبي","المنزل",45,"ترتيب أنيق من خامات طبيعية","photo-1494438639946-1ebd1d20bf85"],
-["شمعة شمع الصويا","المنزل",27,"شمعة بأجواء هادئة","photo-1603006905003-be475563bc59"],
-["لوح طاقة شمسية صغير","الطاقة",110,"نموذج تعليمي للطاقة الشمسية","photo-1509391366360-2e959784a276"],
-["حبل قطن طبيعي","المنزل",14,"استخدامات متعددة للمنزل","photo-1523275335684-37898b6baf30"],
-["قفازات زراعة","الحديقة",20,"للعناية بالنباتات","photo-1416879595882-3373a0480b5b"],
-["علبة غداء قابلة لإعادة الاستخدام","إعادة الاستخدام",38,"خيار عملي للوجبات","photo-1490645935967-10de6ba17061"],
-["حامل نباتات خشبي","الحديقة",55,"عرض جميل لنباتاتك","photo-1497250681960-ef046c08a56e"],
-["سلة تخزين طبيعية","المنزل",42,"ترتيب أنيق بلمسة طبيعية","photo-1593085260707-5377ba37f868"],
-["منشفة قطن عضوي","العناية",24,"منشفة للاستخدام اليومي","photo-1600369671236-e74521d4b6ad"],
-["موزع صابون قابل لإعادة التعبئة","العناية",31,"قلل عبوات الاستخدام الواحد","photo-1608571423902-eed4a5ad8108"],
-["بخاخ تنظيف قابل لإعادة التعبئة","المنزل",19,"عبوة قابلة للاستخدام مرات متعددة","photo-1585421514284-efb74c2b69ba"],
-["كيس حفظ طعام قماشي","إعادة الاستخدام",17,"بديل للأغلفة ذات الاستخدام الواحد","photo-1547592180-85f173990554"],
-["حوض زراعة صغير","الحديقة",36,"ابدأ زراعة نباتاتك","photo-1466692476868-aef1dfb1e735"],
-["مصباح مكتبي LED","الطاقة",65,"إضاءة مكتبية موفرة","photo-1507473885765-e6ed057f782c"]
-].map((p,i)=>({
-id:i,name:p[0],cat:p[1],price:p[2],desc:p[3],img:p[4]
-}));
+{id:1,name:"زجاجة ماء قابلة لإعادة الاستخدام",price:35,cat:"المطبخ",img:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=700"},
+{id:2,name:"مصباح حديقة ديكوري",price:80,cat:"الطاقة",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=700"},
+{id:3,name:"مزهرية زجاجية مع زهور",price:45,cat:"المنزل",img:"https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=700"},
+{id:4,name:"كرسي منزلي مستدام",price:180,cat:"المنزل",img:"https://images.unsplash.com/photo-1503602642458-232111445657?w=700"},
+{id:5,name:"ساعة بتصميم أنيق",price:120,cat:"العناية",img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=700"},
+{id:6,name:"حقيبة تسوق قماشية",price:25,cat:"العناية",img:"https://images.unsplash.com/photo-1597481499666-130f8eb7a9a5?w=700"},
+{id:7,name:"دفتر ورقي معاد تدويره",price:20,cat:"القرطاسية",img:"https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=700"},
+{id:8,name:"حافظة طعام قابلة لإعادة الاستخدام",price:55,cat:"المطبخ",img:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=700"},
+{id:9,name:"أكواب صديقة للبيئة",price:30,cat:"المطبخ",img:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=700"},
+{id:10,name:"نبات منزلي طبيعي",price:40,cat:"المنزل",img:"https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=700"},
+{id:11,name:"مصاصات قابلة لإعادة الاستخدام",price:15,cat:"المطبخ",img:"https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=700"},
+{id:12,name:"صندوق تخزين ورقي",price:35,cat:"المنزل",img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700"},
+{id:13,name:"فرشاة أسنان صديقة للبيئة",price:18,cat:"العناية",img:"https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=700"},
+{id:14,name:"دفتر ملاحظات أخضر",price:22,cat:"القرطاسية",img:"https://images.unsplash.com/photo-1517842645767-c639042777db?w=700"},
+{id:15,name:"حقيبة تخزين قابلة لإعادة الاستخدام",price:32,cat:"العناية",img:"https://images.unsplash.com/photo-1544816155-12df9643f363?w=700"},
+{id:16,name:"وعاء نباتات منزلي",price:28,cat:"المنزل",img:"https://images.unsplash.com/photo-1483794344563-d27a8d18014e?w=700"}
+];
 
-let cart={};
-
-const money=n=>n.toFixed(2);
+let cart=[];
+let cameraStream=null;
+let arSize=230,arX=0,arY=0;
+let dragging=false,startX=0,startY=0,originalX=0,originalY=0;
+let arRequest=0;
+const transparentCache=new Map();
+const $=id=>document.getElementById(id);
 
 function renderProducts(){
-
- const q=document.getElementById("search").value.trim().toLowerCase();
- const c=document.getElementById("category").value;
-
- const list=products.filter(p=>
- (c==="الكل"||p.cat===c)&&
- (p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
- );
-
- document.getElementById("productsGrid").innerHTML=
- list.map(p=>`
- <article class="card">
- <img loading="lazy"
- src="https://images.unsplash.com/${p.img}?auto=format&fit=crop&w=600&q=80"
- alt="${p.name}">
- <span class="tag">${p.cat}</span>
- <h3>${p.name}</h3>
- <p>${p.desc}</p>
- <div class="price">${p.price} ريال</div>
- <button class="primary" onclick="add(${p.id})">
- أضف إلى السلة 🛒
- </button>
- </article>
- `).join("")||"لا توجد منتجات مطابقة.";
-
+const search=$("search").value.trim().toLowerCase();
+const category=$("category").value;
+const filtered=products.filter(p=>
+p.name.toLowerCase().includes(search)&&
+(category==="الكل"||p.cat===category)
+);
+$("productList").innerHTML=filtered.map(p=>`
+<article class="product">
+<img src="${p.img}" alt="${p.name}" loading="lazy"
+onerror="this.src='https://placehold.co/600x400/e0eddf/185338?text=Eco+Product'">
+<div class="info">
+<span class="category">${p.cat}</span>
+<h3>${p.name}</h3>
+<div class="price">${p.price} ريال سعودي</div>
+<button class="add" onclick="addToCart(${p.id})">🛒 أضف للسلة</button>
+<button class="ar-button" onclick="openAR(${p.id})">📱 تجربة بالكاميرا</button>
+</div>
+</article>`).join("");
+if(!filtered.length)$("productList").innerHTML="<p>لا توجد منتجات مطابقة للبحث.</p>";
 }
 
-function add(id){
- cart[id]=(cart[id]||0)+1;
- renderCart();
+function addToCart(id){
+const p=products.find(x=>x.id===id);
+const found=cart.find(x=>x.id===id);
+if(found)found.qty++;
+else cart.push({...p,qty:1});
+renderCart();
 }
 
-function changeQty(id,d){
- cart[id]=(cart[id]||0)+d;
- if(cart[id]<=0)delete cart[id];
- renderCart();
+function removeFromCart(id){
+cart=cart.filter(x=>x.id!==id);
+renderCart();
 }
 
 function renderCart(){
-
- let ids=Object.keys(cart);
- let count=ids.reduce((s,id)=>s+cart[id],0);
-
- let sub=ids.reduce((s,id)=>s+products[id].price*cart[id],0);
-
- let ship=sub===0||sub>=150?0:15;
-
- document.getElementById("count").textContent=count;
-
- document.getElementById("cartItems").innerHTML=
- ids.length?ids.map(id=>`
- <div class="cart-item">
- <div>
- <b>${products[id].name}</b><br>
- ${products[id].price} ريال
- </div>
- <div>
- <button class="secondary" onclick="changeQty(${id},-1)">−</button>
- ${cart[id]}
- <button class="secondary" onclick="changeQty(${id},1)">+</button>
- <button onclick="changeQty(${id},-${cart[id]})">حذف</button>
- </div>
- </div>
- `).join(""):"السلة فارغة حاليًا.";
-
- document.getElementById("subtotal").textContent=money(sub);
- document.getElementById("shipping").textContent=money(ship);
- document.getElementById("total").textContent=money(sub+ship);
-
+const box=$("cartItems");
+if(!cart.length){
+box.textContent="السلة فارغة حاليًا";
+$("total").textContent="الإجمالي: 0 ريال";
+return;
+}
+box.innerHTML=cart.map(p=>`
+<div class="cart-item">
+<span>${p.name} × ${p.qty}</span>
+<span>${p.price*p.qty} ريال</span>
+<button onclick="removeFromCart(${p.id})">حذف</button>
+</div>`).join("");
+const subtotal=cart.reduce((s,p)=>s+p.price*p.qty,0);
+const shipping=subtotal>=150?0:15;
+$("total").textContent=`المنتجات: ${subtotal} ريال | التوصيل: ${shipping} ريال | الإجمالي: ${subtotal+shipping} ريال`;
 }
 
-// تغيير مجسم الواقع المعزز
-function changeAR(){
+/* إزالة خلفية صورة المنتج عند طلب تجربة الكاميرا فقط */
+async function getTransparentProductImage(product){
+if(transparentCache.has(product.id))return transparentCache.get(product.id);
 
- const models={
- bottle:[
- "https://modelviewer.dev/shared-assets/models/WaterBottle.glb",
- "https://modelviewer.dev/shared-assets/models/WaterBottle.usdz"
- ],
- lantern:[
- "https://modelviewer.dev/shared-assets/models/lantern.glb",""
- ],
- vase:[
- "https://modelviewer.dev/shared-assets/models/GlassVaseFlowers.glb",""
- ],
- chair:[
- "https://modelviewer.dev/shared-assets/models/SheenChair.glb",""
- ],
- watch:[
- "https://modelviewer.dev/shared-assets/models/ChronographWatch.glb",""
- ]
- };
+$("arHint").textContent="⏳ جارٍ تحميل أداة إزالة الخلفية...";
 
- const m=models[document.getElementById("arSelect").value];
+const library=await import("https://esm.sh/@imgly/background-removal@1.7.0");
+const removeBackground=library.removeBackground;
 
- const viewer=document.getElementById("viewer");
-
- viewer.src=m[0];
- viewer.removeAttribute("ios-src");
-
- if(m[1]){
-  viewer.setAttribute("ios-src",m[1]);
- }
-
+if(typeof removeBackground!=="function"){
+throw new Error("لم يتم تحميل أداة إزالة الخلفية");
 }
 
-// زر تشغيل الكاميرا والواقع المعزز
-function startAR(){
+$("arHint").textContent="⏳ جارٍ إزالة خلفية المنتج...";
 
- const viewer=document.getElementById("viewer");
+const blob=await removeBackground(product.img,{
+output:{format:"image/png",quality:1}
+});
 
- if(viewer.canActivateAR){
-
-  viewer.activateAR();
-
- }else{
-
-  alert(
-  "الواقع المعزز غير متاح في المعاينة الحالية. افتحي رابط المتجر المنشور عبر HTTPS باستخدام Safari أو متصفح متوافق."
-  );
-
- }
-
+const url=URL.createObjectURL(blob);
+transparentCache.set(product.id,url);
+return url;
 }
 
-// إتمام الطلب التجريبي
-function checkout(e){
+async function openAR(id){
+const product=products.find(p=>p.id===id);
+const modal=$("arModal");
+const image=$("arProduct");
+const error=$("cameraError");
+const hint=$("arHint");
+const request=++arRequest;
 
- e.preventDefault();
+modal.classList.add("active");
+image.removeAttribute("src");
+error.style.display="none";
+hint.textContent="⏳ جارٍ تجهيز المنتج...";
+resetAR();
 
- if(!Object.keys(cart).length){
-  alert("أضيفي منتجات إلى السلة أولاً.");
-  return;
- }
+try{
+if(!navigator.mediaDevices?.getUserMedia)throw new Error("HTTPS مطلوب");
+if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
 
- const ids=Object.keys(cart);
+cameraStream=await navigator.mediaDevices.getUserMedia({
+video:{facingMode:{ideal:"environment"}},
+audio:false
+});
 
- const lines=ids.map(id=>
- products[id].name+" × "+cart[id]
- ).join("\n");
-
- const sub=ids.reduce((s,id)=>
- s+products[id].price*cart[id],0
- );
-
- const total=sub+(sub===0||sub>=150?0:15);
-
- alert(
- "تم تسجيل طلب تجريبي على هذه الصفحة فقط.\n\n"+
- "المنتجات:\n"+lines+
- "\nالإجمالي: "+money(total)+" ريال"+
- "\n\nلا يتم إرسال الطلب فعليًا أو حفظ بياناتك."
- );
-
+if(request!==arRequest)return;
+$("camera").srcObject=cameraStream;
+}catch(e){
+if(request===arRequest)error.style.display="block";
 }
 
+try{
+const url=await getTransparentProductImage(product);
+if(request!==arRequest||!modal.classList.contains("active"))return;
+image.src=url;
+hint.textContent="اسحبي المنتج لتحريكه واستخدمي أزرار التكبير والتصغير";
+}catch(e){
+console.error(e);
+if(request!==arRequest)return;
+hint.textContent="لم نتمكن من إزالة الخلفية. تأكدي من الإنترنت وحاولي مرة أخرى.";
+}
+}
+
+function closeAR(){
+arRequest++;
+$("arModal").classList.remove("active");
+if(cameraStream){
+cameraStream.getTracks().forEach(t=>t.stop());
+cameraStream=null;
+}
+$("camera").srcObject=null;
+$("arProduct").removeAttribute("src");
+}
+
+function changeSize(factor){
+arSize=Math.max(80,Math.min(500,arSize*factor));
+$("arProduct").style.width=arSize+"px";
+$("arProduct").style.height=arSize+"px";
+}
+
+function resetAR(){
+arSize=230;arX=0;arY=0;
+const image=$("arProduct");
+image.style.width=arSize+"px";
+image.style.height=arSize+"px";
+image.style.left="50%";
+image.style.top="50%";
+image.style.transform="translate(-50%,-50%)";
+}
+
+const arImage=$("arProduct");
+arImage.addEventListener("pointerdown",e=>{
+if(!arImage.src)return;
+dragging=true;
+startX=e.clientX;startY=e.clientY;
+originalX=arX;originalY=arY;
+arImage.setPointerCapture(e.pointerId);
+});
+arImage.addEventListener("pointermove",e=>{
+if(!dragging)return;
+arX=originalX+(e.clientX-startX);
+arY=originalY+(e.clientY-startY);
+arImage.style.left=`calc(50% + ${arX}px)`;
+arImage.style.top=`calc(50% + ${arY}px)`;
+});
+arImage.addEventListener("pointerup",()=>dragging=false);
+arImage.addEventListener("pointercancel",()=>dragging=false);
+
+$("search").addEventListener("input",renderProducts);
+$("category").addEventListener("change",renderProducts);
+$("closeButton").addEventListener("click",closeAR);
+$("zoomIn").addEventListener("click",()=>changeSize(1.15));
+$("zoomOut").addEventListener("click",()=>changeSize(.87));
+$("resetButton").addEventListener("click",resetAR);
+
+$("orderForm").addEventListener("submit",function(e){
+e.preventDefault();
+if(!cart.length){alert("أضيفي منتجات إلى السلة أولًا");return;}
+
+const name=$("customerName").value;
+const phone=$("customerPhone").value;
+const address=$("customerAddress").value;
+const notes=$("customerNotes").value;
+const subtotal=cart.reduce((s,p)=>s+p.price*p.qty,0);
+const shipping=subtotal>=150?0:15;
+const total=subtotal+shipping;
+
+let message=`طلب جديد من متجر بصمة مناخية 🌿%0A`;
+message+=`الاسم: ${encodeURIComponent(name)}%0A`;
+message+=`الجوال: ${encodeURIComponent(phone)}%0A`;
+message+=`العنوان: ${encodeURIComponent(address)}%0Aالمنتجات:%0A`;
+cart.forEach(p=>{
+message+=`- ${encodeURIComponent(p.name)} × ${p.qty} = ${p.price*p.qty} ريال%0A`;
+});
+message+=`قيمة المنتجات: ${subtotal} ريال%0Aالتوصيل: ${shipping} ريال%0Aالإجمالي: ${total} ريال%0Aملاحظات: ${encodeURIComponent(notes)}`;
+window.open("https://wa.me/966508271483?text="+message,"_blank");
+});
+
+window.addToCart=addToCart;
+window.removeFromCart=removeFromCart;
+window.openAR=openAR;
 renderProducts();
 renderCart();
-
 </script>
-
 </body>
 </html>
