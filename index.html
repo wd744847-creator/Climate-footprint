@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بصمة مناخية | متجر صديق للبيئة</title>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<style>
+:root{
+--green:#185b3a;
+--light:#edf5e9;
+--gold:#c5a66a;
+--dark:#173c2b
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Tahoma,Arial;
+background:#f7faf5;
+color:#203b2c
+}
+header{
+background:var(--green);
+color:white;
+padding:18px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:12px
+}
+.logo{font-size:25px;font-weight:bold}
+header a{color:white;text-decoration:none}
+.hero{
+padding:55px 20px;
+text-align:center;
+background:linear-gradient(135deg,#dcebd5,#f6f5e8)
+}
+.hero h1{font-size:36px;color:var(--green)}
+.hero p{line-height:2}
+button{
+border:0;
+border-radius:10px;
+padding:11px 16px;
+cursor:pointer;
+font-size:15px
+}
+.primary{background:var(--green);color:white}
+.secondary{background:#dcebd5;color:var(--dark)}
+.container{max-width:1150px;margin:auto;padding:25px 15px}
+h2{color:var(--green)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+input,select,textarea{
+padding:12px;
+border:1px solid #ccd9cb;
+border-radius:9px;
+font:inherit;
+width:100%;
+margin:6px 0
+}
+.tools input{flex:1;min-width:180px}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:18px
+}
+.card{
+background:white;
+border-radius:16px;
+padding:14px;
+box-shadow:0 3px 14px #173c2b12
+}
+.card img{
+width:100%;
+height:170px;
+object-fit:cover;
+border-radius:12px
+}
+.card h3{margin:12px 0 6px}
+.price{font-weight:bold;color:var(--green);font-size:19px}
+.card button{margin-top:8px;width:100%}
+.tag{
+background:#e8f2e4;
+color:var(--green);
+padding:5px 9px;
+border-radius:20px;
+font-size:12px
+}
+.panel{
+background:white;
+border-radius:16px;
+padding:20px;
+margin:25px 0;
+box-shadow:0 3px 14px #173c2b12
+}
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+border-bottom:1px solid #eee;
+padding:12px 0;
+flex-wrap:wrap
+}
+.cart-item button{padding:6px 10px}
+.total{font-size:21px;font-weight:bold;color:var(--green)}
+model-viewer{
+width:100%;
+height:350px;
+background:#edf5e9;
+border-radius:15px
+}
+.ar-camera-button{
+display:block;
+margin:18px auto;
+padding:16px 25px;
+font-size:18px;
+width:100%;
+background:var(--green);
+color:white;
+border-radius:12px
+}
+footer{
+background:#173c2b;
+color:white;
+text-align:center;
+padding:30px;
+line-height:2
+}
+footer a{color:#d5edc9}
+.small{font-size:13px;color:#647568;line-height:1.8}
+@media(max-width:600px){
+.hero h1{font-size:27px}
+header{justify-content:center}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">🌿 بصمة مناخية</div>
+ <div>
+  <a href="#products">المنتجات</a>　
+  <a href="#ar">تجربة AR</a>　
+  <a href="#cart">🛒 السلة (<span id="count">0</span>)</a>
+ </div>
+</header>
+
+<section class="hero">
+ <h1>اختياراتك اليوم تصنع غدًا أخضر 🌱</h1>
+ <p>
+ متجر بصمة مناخية يقدم لك منتجات مستدامة وصديقة للبيئة<br>
+ تسوّق بوعي، وكن جزءًا من التغيير.
+ </p>
+ <a href="#products"><button class="primary">اكتشف منتجاتنا</button></a>
+</section>
+
+<main class="container">
+
+<h2 id="products">🌱 منتجاتنا الصديقة للبيئة</h2>
+
+<div class="tools">
+ <input id="search" placeholder="ابحث عن منتج..." oninput="renderProducts()">
+ <select id="category" onchange="renderProducts()">
+  <option value="الكل">كل المنتجات</option>
+  <option>المنزل</option>
+  <option>العناية</option>
+  <option>إعادة الاستخدام</option>
+  <option>الطاقة</option>
+  <option>الحديقة</option>
+ </select>
+</div>
+
+<div class="grid" id="productsGrid"></div>
+
+<!-- الواقع المعزز -->
+<section class="panel" id="ar">
+
+ <h2>📱 جرّب المنتجات بالواقع المعزز AR</h2>
+
+ <p>
+ اختاري أحد المنتجات المدعومة، ثم اضغطي على زر الكاميرا
+ لتجربة المجسم في مساحتك الحقيقية.
+ </p>
+
+ <select id="arSelect" onchange="changeAR()">
+  <option value="bottle">زجاجة ماء مستدامة</option>
+  <option value="lantern">مصباح صديق للبيئة</option>
+  <option value="vase">مزهرية زجاجية</option>
+  <option value="chair">كرسي مستدام</option>
+  <option value="watch">ساعة</option>
+ </select>
+
+ <model-viewer
+  id="viewer"
+  src="https://modelviewer.dev/shared-assets/models/WaterBottle.glb"
+  ios-src="https://modelviewer.dev/shared-assets/models/WaterBottle.usdz"
+  camera-controls
+  auto-rotate
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  environment-image="neutral"
+  shadow-intensity="1"
+  alt="نموذج ثلاثي الأبعاد تجريبي">
+
+  <button slot="ar-button" class="primary">
+   📷 تشغيل الواقع المعزز
+  </button>
+
+ </model-viewer>
+
+ <button
+  class="ar-camera-button"
+  onclick="startAR()">
+  📷 جرّبي المنتج بالكاميرا
+ </button>
+
+ <p class="small">
+ هذه نماذج ثلاثية الأبعاد تجريبية للعرض، وقد لا تطابق المنتجات المعروضة في المتجر.
+ تتطلب ميزة الواقع المعزز جهازًا متوافقًا واتصالًا بالإنترنت
+ وموقعًا يعمل عبر HTTPS.
+ </p>
+
+</section>
+
+<!-- السلة -->
+<section class="panel" id="cart">
+
+ <h2>🛒 سلة مشترياتك</h2>
+
+ <div id="cartItems">السلة فارغة حاليًا.</div>
+
+ <p>المجموع: <span id="subtotal">0</span> ريال</p>
+ <p>الشحن: <span id="shipping">0</span> ريال</p>
+
+ <p class="total">
+ الإجمالي: <span id="total">0</span> ريال
+ </p>
+
+ <p class="small">
+ الشحن 15 ريالًا، ومجانًا للطلبات التي تتجاوز 150 ريالًا.
+ </p>
+
+</section>
+
+<!-- بيانات التوصيل -->
+<section class="panel" id="checkout">
+
+ <h2>📦 بيانات التوصيل وإتمام الطلب</h2>
+
+ <form onsubmit="checkout(event)">
+
+  <label>الاسم الكامل</label>
+  <input id="customer" required placeholder="اكتب اسمك">
+
+  <label>رقم الجوال</label>
+  <input id="phone" required type="tel" placeholder="05xxxxxxxx">
+
+  <label>البريد الإلكتروني</label>
+  <input id="email" type="email" placeholder="example@email.com">
+
+  <label>المدينة</label>
+  <input id="city" required placeholder="المدينة">
+
+  <label>الحي والعنوان</label>
+  <textarea id="address" required placeholder="العنوان بالتفصيل"></textarea>
+
+  <label>طريقة الدفع (تجريبية)</label>
+  <select id="payment">
+   <option>الدفع عند الاستلام (تجريبي)</option>
+   <option>تحويل بنكي (تجريبي غير مفعّل)</option>
+  </select>
+
+  <label>ملاحظات إضافية</label>
+  <textarea id="notes"></textarea>
+
+  <button class="primary" type="submit">
+   تأكيد الطلب التجريبي
+  </button>
+
+ </form>
+
+ <p class="small">
+ لا يتم إرسال البيانات إلى خادم أو حفظها لدى المتجر.
+ هذا نموذج توضيحي فقط.
+ </p>
+
+</section>
+
+<section class="panel">
+
+ <h2>💚 لماذا بصمة مناخية؟</h2>
+
+ <div class="grid">
+  <div>
+   <h3>♻️ استدامة</h3>
+   <p>نشجع إعادة الاستخدام وتقليل النفايات.</p>
+  </div>
+
+  <div>
+   <h3>🌍 بيئة أفضل</h3>
+   <p>خيارات تساعد على تقليل الأثر البيئي.</p>
+  </div>
+
+  <div>
+   <h3>🌱 وعي أخضر</h3>
+   <p>كل اختيار واعٍ يصنع فرقًا.</p>
+  </div>
+ </div>
+
+</section>
+</main>
+
+<footer>
+
+ <h2 style="color:white">🌿 بصمة مناخية</h2>
+
+ <p>معًا نحو مستقبل أكثر استدامة</p>
+
+ <p>
+ 📞 التواصل:
+ <a href="tel:0508271483">0508271483</a>
+ </p>
+
+ <p>
+ 💬 واتساب:
+ <a href="https://wa.me/966508271483" target="_blank">
+ تواصل معنا عبر واتساب
+ </a>
+ </p>
+
+ <p>© 2026 بصمة مناخية - جميع الحقوق محفوظة</p>
+
+</footer>
+
+<script>
+
+const products=[
+["زجاجة ماء قابلة لإعادة الاستخدام","إعادة الاستخدام",35,"زجاجة عملية لتقليل العبوات البلاستيكية","photo-1602143407151-7111542de6e8"],
+["حقيبة قماش تسوق","إعادة الاستخدام",25,"بديل عملي للأكياس البلاستيكية","photo-1544816155-12df9643f363"],
+["مصباح LED موفر للطاقة","الطاقة",49,"إضاءة موفرة للاستهلاك","photo-1507473885765-e6ed057f782c"],
+["أصيص نبات طبيعي","الحديقة",30,"أضف لمسة خضراء لمنزلك","photo-1485955900006-10f4d324d411"],
+["دفتر ورق معاد تدويره","المنزل",18,"دفتر صديق للبيئة","photo-1531346878377-a5be20888e57"],
+["فرشاة أسنان خشبية","العناية",12,"بديل عملي للفرش البلاستيكية","photo-1609840114035-3c981b782dfe"],
+["صابون طبيعي","العناية",22,"صابون بمكونات لطيفة","photo-1600428853876-fb5a850b444f"],
+["أكياس قابلة لإعادة الاستخدام","إعادة الاستخدام",16,"للتسوق اليومي","photo-1590874103328-eac38a683ce7"],
+["وعاء زجاجي للطعام","المنزل",28,"حفظ الطعام بطريقة قابلة لإعادة الاستخدام","photo-1603199506016-b9a594b593c0"],
+["كوب قهوة مستدام","إعادة الاستخدام",32,"كوبك اليومي القابل لإعادة الاستخدام","photo-1514228742587-6b1558fcca3d"],
+["منظم خشبي","المنزل",45,"ترتيب أنيق من خامات طبيعية","photo-1494438639946-1ebd1d20bf85"],
+["شمعة شمع الصويا","المنزل",27,"شمعة بأجواء هادئة","photo-1603006905003-be475563bc59"],
+["لوح طاقة شمسية صغير","الطاقة",110,"نموذج تعليمي للطاقة الشمسية","photo-1509391366360-2e959784a276"],
+["حبل قطن طبيعي","المنزل",14,"استخدامات متعددة للمنزل","photo-1523275335684-37898b6baf30"],
+["قفازات زراعة","الحديقة",20,"للعناية بالنباتات","photo-1416879595882-3373a0480b5b"],
+["علبة غداء قابلة لإعادة الاستخدام","إعادة الاستخدام",38,"خيار عملي للوجبات","photo-1490645935967-10de6ba17061"],
+["حامل نباتات خشبي","الحديقة",55,"عرض جميل لنباتاتك","photo-1497250681960-ef046c08a56e"],
+["سلة تخزين طبيعية","المنزل",42,"ترتيب أنيق بلمسة طبيعية","photo-1593085260707-5377ba37f868"],
+["منشفة قطن عضوي","العناية",24,"منشفة للاستخدام اليومي","photo-1600369671236-e74521d4b6ad"],
+["موزع صابون قابل لإعادة التعبئة","العناية",31,"قلل عبوات الاستخدام الواحد","photo-1608571423902-eed4a5ad8108"],
+["بخاخ تنظيف قابل لإعادة التعبئة","المنزل",19,"عبوة قابلة للاستخدام مرات متعددة","photo-1585421514284-efb74c2b69ba"],
+["كيس حفظ طعام قماشي","إعادة الاستخدام",17,"بديل للأغلفة ذات الاستخدام الواحد","photo-1547592180-85f173990554"],
+["حوض زراعة صغير","الحديقة",36,"ابدأ زراعة نباتاتك","photo-1466692476868-aef1dfb1e735"],
+["مصباح مكتبي LED","الطاقة",65,"إضاءة مكتبية موفرة","photo-1507473885765-e6ed057f782c"]
+].map((p,i)=>({
+id:i,name:p[0],cat:p[1],price:p[2],desc:p[3],img:p[4]
+}));
+
+let cart={};
+
+const money=n=>n.toFixed(2);
+
+function renderProducts(){
+
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const c=document.getElementById("category").value;
+
+ const list=products.filter(p=>
+ (c==="الكل"||p.cat===c)&&
+ (p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
+ );
+
+ document.getElementById("productsGrid").innerHTML=
+ list.map(p=>`
+ <article class="card">
+ <img loading="lazy"
+ src="https://images.unsplash.com/${p.img}?auto=format&fit=crop&w=600&q=80"
+ alt="${p.name}">
+ <span class="tag">${p.cat}</span>
+ <h3>${p.name}</h3>
+ <p>${p.desc}</p>
+ <div class="price">${p.price} ريال</div>
+ <button class="primary" onclick="add(${p.id})">
+ أضف إلى السلة 🛒
+ </button>
+ </article>
+ `).join("")||"لا توجد منتجات مطابقة.";
+
+}
+
+function add(id){
+ cart[id]=(cart[id]||0)+1;
+ renderCart();
+}
+
+function changeQty(id,d){
+ cart[id]=(cart[id]||0)+d;
+ if(cart[id]<=0)delete cart[id];
+ renderCart();
+}
+
+function renderCart(){
+
+ let ids=Object.keys(cart);
+ let count=ids.reduce((s,id)=>s+cart[id],0);
+
+ let sub=ids.reduce((s,id)=>s+products[id].price*cart[id],0);
+
+ let ship=sub===0||sub>=150?0:15;
+
+ document.getElementById("count").textContent=count;
+
+ document.getElementById("cartItems").innerHTML=
+ ids.length?ids.map(id=>`
+ <div class="cart-item">
+ <div>
+ <b>${products[id].name}</b><br>
+ ${products[id].price} ريال
+ </div>
+ <div>
+ <button class="secondary" onclick="changeQty(${id},-1)">−</button>
+ ${cart[id]}
+ <button class="secondary" onclick="changeQty(${id},1)">+</button>
+ <button onclick="changeQty(${id},-${cart[id]})">حذف</button>
+ </div>
+ </div>
+ `).join(""):"السلة فارغة حاليًا.";
+
+ document.getElementById("subtotal").textContent=money(sub);
+ document.getElementById("shipping").textContent=money(ship);
+ document.getElementById("total").textContent=money(sub+ship);
+
+}
+
+// تغيير مجسم الواقع المعزز
+function changeAR(){
+
+ const models={
+ bottle:[
+ "https://modelviewer.dev/shared-assets/models/WaterBottle.glb",
+ "https://modelviewer.dev/shared-assets/models/WaterBottle.usdz"
+ ],
+ lantern:[
+ "https://modelviewer.dev/shared-assets/models/lantern.glb",""
+ ],
+ vase:[
+ "https://modelviewer.dev/shared-assets/models/GlassVaseFlowers.glb",""
+ ],
+ chair:[
+ "https://modelviewer.dev/shared-assets/models/SheenChair.glb",""
+ ],
+ watch:[
+ "https://modelviewer.dev/shared-assets/models/ChronographWatch.glb",""
+ ]
+ };
+
+ const m=models[document.getElementById("arSelect").value];
+
+ const viewer=document.getElementById("viewer");
+
+ viewer.src=m[0];
+ viewer.removeAttribute("ios-src");
+
+ if(m[1]){
+  viewer.setAttribute("ios-src",m[1]);
+ }
+
+}
+
+// زر تشغيل الكاميرا والواقع المعزز
+function startAR(){
+
+ const viewer=document.getElementById("viewer");
+
+ if(viewer.canActivateAR){
+
+  viewer.activateAR();
+
+ }else{
+
+  alert(
+  "الواقع المعزز غير متاح في المعاينة الحالية. افتحي رابط المتجر المنشور عبر HTTPS باستخدام Safari أو متصفح متوافق."
+  );
+
+ }
+
+}
+
+// إتمام الطلب التجريبي
+function checkout(e){
+
+ e.preventDefault();
+
+ if(!Object.keys(cart).length){
+  alert("أضيفي منتجات إلى السلة أولاً.");
+  return;
+ }
+
+ const ids=Object.keys(cart);
+
+ const lines=ids.map(id=>
+ products[id].name+" × "+cart[id]
+ ).join("\n");
+
+ const sub=ids.reduce((s,id)=>
+ s+products[id].price*cart[id],0
+ );
+
+ const total=sub+(sub===0||sub>=150?0:15);
+
+ alert(
+ "تم تسجيل طلب تجريبي على هذه الصفحة فقط.\n\n"+
+ "المنتجات:\n"+lines+
+ "\nالإجمالي: "+money(total)+" ريال"+
+ "\n\nلا يتم إرسال الطلب فعليًا أو حفظ بياناتك."
+ );
+
+}
+
+renderProducts();
+renderCart();
+
+</script>
+
+</body>
+</html>
